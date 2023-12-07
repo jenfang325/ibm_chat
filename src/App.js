@@ -42,14 +42,13 @@ function App() {
           'ngrok-skip-browser-warning': '69420'
         }
       });
-      const data = await response.json();
-      const processedContent = data.content.replace(/\(ref:([^\)]+)\)/g, (match, url) => `[🔗](${url})`);
+      const processedContent = response.data.content.replace(/\(ref:([^\)]+)\)/g, (match, url) => `[🔗](${url})`);
       const htmlContent = marked(processedContent);
       setSummary(htmlContent);
     } catch (error) {
       console.error("Error fetching company info:", error);
       setSummary("無法獲取資訊");
-    }finally {
+    } finally {
       setLoadingCompanyInfo(false);
     }
   };
@@ -62,7 +61,6 @@ function App() {
           'ngrok-skip-browser-warning': '69420'
         }
       });
-      console.log(response.data); 
       setCompanies(response.data);
     } catch (error) {
       console.error("Error fetching companies:", error);
@@ -82,8 +80,7 @@ function App() {
           'ngrok-skip-browser-warning': '69420'
         }
       });
-      const data = await response.json();
-      const processedContent = data.content.replace(/\(ref:([^\)]+)\)/g, (match, url) => `[🔗](${url})`);
+      const processedContent = response.data.content.replace(/\(ref:([^\)]+)\)/g, (match, url) => `[🔗](${url})`);
       const htmlContent = marked(processedContent);
       setAnswer(htmlContent);
     } catch (error) {
