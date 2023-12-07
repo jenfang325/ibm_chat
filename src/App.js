@@ -51,7 +51,8 @@ function App() {
 
   const fetchAllCompanies = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/all_companies`);
+      const url = `${process.env.REACT_APP_API_BASE_URL}/all_companies`;
+      const response = await fetch(url);
       const data = await response.json();
       setCompanies(data);
     } catch (error) {
