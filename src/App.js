@@ -3,6 +3,7 @@ import { AppBar, Toolbar, IconButton, Typography, Container, TextField, Button, 
 import { MdOutlineChat } from "react-icons/md";
 import { marked } from 'marked';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 
 function App() {
@@ -36,7 +37,11 @@ function App() {
     setLoadingCompanyInfo(true);
     try {
       const url = `${process.env.REACT_APP_API_BASE_URL}/company?company_name=${encodeURIComponent(name)}`;
-      const response = await fetch(url);
+      const response = await axios.get(url, {
+        headers: {
+          'ngrok-skip-browser-warning': '69420'
+        }
+      });
       const data = await response.json();
       const processedContent = data.content.replace(/\(ref:([^\)]+)\)/g, (match, url) => `[🔗](${url})`);
       const htmlContent = marked(processedContent);
@@ -52,11 +57,19 @@ function App() {
   const fetchAllCompanies = async () => {
     try {
       const url = `${process.env.REACT_APP_API_BASE_URL}/all_companies`;
-      const response = await fetch(url);
-      const data = await response.json();
-      setCompanies(data);
+      const response = await axios.get(url, {
+        headers: {
+          'ngrok-skip-browser-warning': '69420'
+        }
+      });
+      console.log(response.data); 
+      setCompanies(response.data);
     } catch (error) {
       console.error("Error fetching companies:", error);
+      if (error.response) {
+        console.log("Response status:", error.response.status);
+        console.log("Response data:", error.response.data);
+      }
     }
   };
 
@@ -64,7 +77,11 @@ function App() {
     setLoadingQuestion(true);
     try {
       const url = `${process.env.REACT_APP_API_BASE_URL}/ask/${encodeURIComponent(companyName)}?question=${encodeURIComponent(question)}`;
-      const response = await fetch(url);
+      const response = await axios.get(url, {
+        headers: {
+          'ngrok-skip-browser-warning': '69420'
+        }
+      });
       const data = await response.json();
       const processedContent = data.content.replace(/\(ref:([^\)]+)\)/g, (match, url) => `[🔗](${url})`);
       const htmlContent = marked(processedContent);
@@ -124,6 +141,7 @@ function App() {
           請選擇企業名稱，並輸入問題以獲取更多ESG資訊:
         </Typography>
 
+
         <Select
           fullWidth
           value={companyName}
@@ -140,7 +158,7 @@ function App() {
             </MenuItem>
           ))}
         </Select>
-
+          
         <TextField
           fullWidth
           label="問題"
