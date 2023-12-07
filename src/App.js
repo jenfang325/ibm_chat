@@ -35,7 +35,7 @@ function App() {
   const fetchCompanyInfo = async (name) => {
     setLoadingCompanyInfo(true);
     try {
-      const url = `http://35.185.155.17:8000/company?company_name=${encodeURIComponent(name)}`;
+      const url = `${process.env.REACT_APP_API_BASE_URL}/company?company_name=${encodeURIComponent(name)}`;
       const response = await fetch(url);
       const data = await response.json();
       const processedContent = data.content.replace(/\(ref:([^\)]+)\)/g, (match, url) => `[🔗](${url})`);
@@ -51,7 +51,7 @@ function App() {
 
   const fetchAllCompanies = async () => {
     try {
-      const response = await fetch('http://35.185.155.17:8000/all_companies');
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/all_companies`);
       const data = await response.json();
       setCompanies(data);
     } catch (error) {
@@ -62,7 +62,7 @@ function App() {
   const submitQuestion = async () => {
     setLoadingQuestion(true);
     try {
-      const url = `http://35.185.155.17:8000/ask/${encodeURIComponent(companyName)}?question=${encodeURIComponent(question)}`;
+      const url = `${process.env.REACT_APP_API_BASE_URL}/ask/${encodeURIComponent(companyName)}?question=${encodeURIComponent(question)}`;
       const response = await fetch(url);
       const data = await response.json();
       const processedContent = data.content.replace(/\(ref:([^\)]+)\)/g, (match, url) => `[🔗](${url})`);
