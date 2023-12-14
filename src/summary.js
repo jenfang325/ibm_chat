@@ -29,8 +29,8 @@ const Summary = ({ onSubmit }) => {
       };
     
       const handleSubmit = async () => {
-        if (!companyName || !file) {
-            setUploadMessage('請輸入企業名稱並上傳ESG永續報告書！');
+        if (!companyName) {
+            setUploadMessage('請輸入企業名稱！');
             setOpenSnackbar(true);
             return;
         }
