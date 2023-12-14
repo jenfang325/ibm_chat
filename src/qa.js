@@ -10,7 +10,6 @@ const QA = () => {
   const [question, setQuestion] = useState('');
   const [commonAnswers, setCommonAnswers] = useState('');
   const [answer, setAnswer] = useState('');
-  const [loading, setLoading] = useState(false);
   const [uploadMessage, setUploadMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [loadingCommonQuestions, setLoadingCommonQuestions] = useState(false);
@@ -33,7 +32,7 @@ const QA = () => {
       };
       
   
-    fetchCompanies(); // 调用函数以获取公司列表
+    fetchCompanies(); 
   }, []);
 
   const handleCommonQuestions = async () => {
